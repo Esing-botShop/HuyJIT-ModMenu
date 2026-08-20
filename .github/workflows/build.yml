@@ -11,13 +11,10 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Theos
+      - name: Setup Theos & SDK
         run: |
           bash -c "$(curl -fsSL https://githubusercontent.com)"
           echo "THEOS=~/theos" >> $GITHUB_ENV
-
-      - name: Download iOS SDK
-        run: |
           curl -LO https://github.com
           tar -xf iPhoneOS14.5.sdk.tar.xz -C ~/theos/sdks/
           rm iPhoneOS14.5.sdk.tar.xz
@@ -25,4 +22,4 @@ jobs:
       - name: Compile Tweak
         run: |
           export THEOS=~/theos
-          make package FINALPACKAGE=1
+          make package FINALPACKAGE=1 THEOS_DEVICE_ARCHS="arm64"
