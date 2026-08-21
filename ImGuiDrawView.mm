@@ -221,23 +221,58 @@ static bool MenDeal = true;
             ImGui::SetNextWindowPos(ImVec2(x, y), ImGuiCond_FirstUseEver);
             ImGui::SetNextWindowSize(ImVec2(400, 300), ImGuiCond_FirstUseEver);
             
-            if (MenDeal == true)
+                        if (MenDeal == true)
             {                
-                ImGui::Begin("Little 34306 JIT Menu Auto Update Unity3D Games!", &MenDeal);
-                ImGui::Text("Use 3 Fingers Click 3 Times Open Menu\n2 Finger Tap Screen 2 Times Hide Menu\n\nOpen In Lobby");
-                ImGui::Text("Dùng 3 ngón chạm 2 lần để mở menu\n2 ngón chạm 2 lần để ẩn menu\n\nBật ở Sảnh");
+                ImGui::Begin("Free Fire Mod Menu [iOS Non-Jailbreak]", &MenDeal);
                 
-                ImGui::TableNextColumn();
+                ImGui::Text("Управление: 3 пальца х 3 тапа — Открыть | 2 пальца х 2 тапа — Скрыть");
+                ImGui::Text("FPS: %.1f | Статус: Безопасно", ImGui::GetIO().Framerate);
+                ImGui::Separator();
 
-                ImGui::Checkbox("Map Cheat Enable || Bật Hack Map", &show_s0);
+                if (ImGui::BeginTabBar("FreeFireTabs")) 
+                {
+                    if (ImGui::BeginTabItem("Стрельба (Aimbot)")) 
+                    {
+                        ImGui::Spacing();
+                        ImGui::Checkbox("Включить Аимбот (Aimbot)", &show_s1);
+                        ImGui::Checkbox("Аим по нажатию (Aim on Fire)", &show_s2);
+                        ImGui::Checkbox("Умное наведение (Silent Aim)", &show_s3);
+                        ImGui::Checkbox("Без отдачи (No Recoil)", &show_s4);
+                    } // Это закрывает вкладку Аимбота
 
-                ImGui::Text("Contact on Telegram || Liên hệ qua Telegram:\n@little34306 or x.com/little_34306\nSupport || Hỗ trợ:\nXina, Dopamine, unc0ver, palera1n and Non-jailbreak (JIT)!\n(%.3f ms/frame (%.1f FPS))", 500.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+                    if (ImGui::BeginTabItem("Визуалы (ESP)")) 
+                    {
+                        ImGui::Spacing();
+                        ImGui::Checkbox("Включить Hack Map (Оригинал)", &show_s0); 
+                        ImGui::Separator();
+                        ImGui::Checkbox("Линии до игроков (ESP Lines)", &show_s5);
+                        ImGui::Checkbox("2D Квадраты (ESP Boxes)", &show_s6);
+                        ImGui::Checkbox("Показывать здоровье (ESP Health)", &show_s7);
+                        ImGui::Checkbox("Дистанция (ESP Distance)", &show_s8);
+                        ImGui::EndTabItem();
+                    }
+
+                    if (ImGui::BeginTabItem("Разное (Misc)")) 
+                    {
+                        ImGui::Spacing();
+                        ImGui::Checkbox("Быстрый бег (SpeedHack)", &show_s9);
+                        ImGui::Checkbox("Высокий прыжок (Super Jump)", &show_s10);
+                        ImGui::Checkbox("Подмена оружия (Weapon Swap)", &show_s11);
+                        ImGui::Checkbox("Вечерний режим (Night Mode)", &show_s12);
+                        ImGui::EndTabItem();
+                    }
+
+                    ImGui::EndTabBar();
+                }
+
+                ImGui::Separator();
+                ImGui::Text("Создано для iPhone 7 (iOS 15.8.3) via GitHub Actions");
 
                 ImGui::End();
-                //require this one inside this to attach when first open menu
-                initial_setup();
                 
+                initial_setup();
             }
+
             ImDrawList* draw_list = ImGui::GetBackgroundDrawList();
 
 
