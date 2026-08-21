@@ -13,12 +13,11 @@ jobs:
           submodules: recursive
 
       - name: Setup Theos
-        run: git clone --recursive https://github.com ~/theos
+        run: git clone --recursive https://github.com/theos/theos
 
       - name: Setup iOS SDK
         run: |
-          git clone https://github.com ~/theos/sdks
-          ls -la ~/theos/sdks/
+          git clone https://github.com~/theos/sdks
 
       - name: Compile Tweak
         run: |
