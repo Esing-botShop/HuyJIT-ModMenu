@@ -17,7 +17,7 @@ jobs:
 
       - name: Setup iOS SDK
         run: |
-          git clone https://github.com~/theos/sdks
+          git clone https://github.com/theos/sdks
 
       - name: Compile Tweak
         run: |
