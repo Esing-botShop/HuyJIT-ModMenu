@@ -4,22 +4,33 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Setup Theos & SDK
+      - name: Setup Theos
         run: |
-          bash -c "$(curl -fsSL https://githubusercontent.com)"
+          git clone --recursive https://github.com ~/theos
           echo "THEOS=~/theos" >> $GITHUB_ENV
-          curl -LO https://github.com
-          tar -xf iPhoneOS14.5.sdk.tar.xz -C ~/theos/sdks/
-          rm iPhoneOS14.5.sdk.tar.xz
+
+      - name: Setup iOS SDK
+        run: |
+          git clone https://github.com ~/theos/sdks
+          # Используем SDK 16.5, так как он стабильно компилирует код для iOS 15
+          ls -la ~/theos/sdks/
 
       - name: Compile Tweak
         run: |
           export THEOS=~/theos
-          make package FINALPACKAGE=1 THEOS_DEVICE_ARCHS="arm64"
+          # Принудительно указываем цель под iOS 15.0 и выше
+          make package FINALPACKAGE=1 THEOS_DEVICE_ARCHS="arm64" TARGET=iphone:clang:latest:15.0
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FreeFire-Menu-Dylib
+          path: .theos/obj/debug/*.dylib
+
