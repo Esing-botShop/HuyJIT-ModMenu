@@ -1,4 +1,5 @@
 name: Build iOS Tweak
+
 on:
   workflow_dispatch:
 
@@ -12,14 +13,11 @@ jobs:
           submodules: recursive
 
       - name: Setup Theos
-        run: |
-          git clone --recursive https://github.com ~/theos
-          echo "THEOS=~/theos" >> $GITHUB_ENV
+        run: git clone --recursive https://github.com ~/theos
 
       - name: Setup iOS SDK
         run: |
           git clone https://github.com ~/theos/sdks
-          # Используем SDK 16.5, так как он стабильно компилирует код для iOS 15
           ls -la ~/theos/sdks/
 
       - name: Compile Tweak
@@ -33,4 +31,3 @@ jobs:
         with:
           name: FreeFire-Menu-Dylib
           path: .theos/obj/debug/*.dylib
-
