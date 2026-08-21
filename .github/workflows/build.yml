@@ -21,7 +21,7 @@ jobs:
 
       - name: Compile Tweak
         run: |
-          export THEOS=~/theos
+          export THEOS=$GITHUB_WORKSPACE/theos
           # Принудительно указываем цель под iOS 15.0 и выше
           make package FINALPACKAGE=1 THEOS_DEVICE_ARCHS="arm64" TARGET=iphone:clang:latest:15.0
 
