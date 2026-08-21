@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: FreeFire-Menu-Dylib
-          path: .theos/obj/debug/*.dylib
+          path: $GITHUB_WORKSPACE/theos/.theos/obj/*.dylib
